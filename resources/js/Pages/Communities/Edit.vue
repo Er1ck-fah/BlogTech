@@ -1,10 +1,10 @@
 <template>
 
-    <Head title="Create community" />
+    <Head title="Edit community" />
 
     <AuthenticatedLayout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Create community</h2>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Edit community</h2>
         </template>
 
         <div class="py-12">
@@ -46,7 +46,7 @@
 
                         <div class="flex items-center justify-end mt-4">
                             <PrimaryButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                                Store
+                                Update
                             </PrimaryButton>
                         </div>
                     </form>
@@ -65,17 +65,15 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Head, useForm } from '@inertiajs/inertia-vue3';
-defineProps({
+
+const props = defineProps({
+    community:Object,
     errors:Object,
 });
-const form = useForm({
-    name: '',
-    description: '',
-    slug: '',
-});
+const form = useForm(props.community);
 
 const submit = () => {
-    form.post(route("communities.store"));
+    form.put(route("communities.update",props.community.id));
 };
 </script>
 
