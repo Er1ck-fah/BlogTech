@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Backend\CommunityController;
+use App\Http\Controllers\Frontend\SubblogtechController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,7 +28,7 @@ Route::get('/', function () {
 });
 
 
-//
+Route::get('/b/{slug}',[SubblogtechController::class,'show'])->name('subblogtech.show');
 
 Route::group(['middleware'=>['auth', 'verified']],function(){
 
@@ -35,7 +36,7 @@ Route::group(['middleware'=>['auth', 'verified']],function(){
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
-    Route::resource('/communities', CommunityController::class);
+    Route::resource('/dashboard/communities', CommunityController::class);
 });
 
 
